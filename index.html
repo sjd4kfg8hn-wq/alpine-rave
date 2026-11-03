@@ -120,6 +120,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(6px);
             text-align: center;
+            position: relative;
         }
 
         .deck h2 {
@@ -133,64 +134,76 @@
             align-items: center;
         }
 
-        /* Vúmetro de 12 Barras */
-        .equalizer-container {
-            height: 60px;
-            width: 180px;
-            margin: 10px auto 15px auto;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 4px;
-            padding: 6px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(0, 255, 204, 0.4);
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
+        /* Estilos de la tornamesa y vinilo */
+        .turntable {
+            width: 160px;
+            height: 160px;
+            margin: 15px auto;
+            position: relative;
         }
 
-        .eq-bar {
-            flex: 1;
-            height: 8%;
-            background: linear-gradient(to top, #00ffcc 0%, #ff007f 65%, #ffe600 100%);
-            border-radius: 2px;
-            transition: height 0.1s ease-in-out;
-            opacity: 0.4;
+        .vinyl {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at center,
+                #ff00aa 0%,
+                #ff00aa 8%,
+                #222 9%,
+                #111 30%,
+                #000 100%);
+            box-shadow: 
+                0 0 15px #00ffff,
+                0 0 40px rgba(0,255,204,.5);
+            position: relative;
         }
 
-        .playing .eq-bar {
-            opacity: 1;
-            box-shadow: 0 0 8px rgba(255, 0, 127, 0.6);
+        .vinyl::before {
+            content: '';
+            position: absolute;
+            inset: 15px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.08);
         }
 
-        .playing .eq-bar:nth-child(1)  { animation: eqBounce 0.38s infinite alternate ease-in-out 0.00s; }
-        .playing .eq-bar:nth-child(2)  { animation: eqBounce 0.29s infinite alternate ease-in-out 0.08s; }
-        .playing .eq-bar:nth-child(3)  { animation: eqBounce 0.42s infinite alternate ease-in-out 0.03s; }
-        .playing .eq-bar:nth-child(4)  { animation: eqBounce 0.31s infinite alternate ease-in-out 0.12s; }
-        .playing .eq-bar:nth-child(5)  { animation: eqBounce 0.48s infinite alternate ease-in-out 0.05s; }
-        .playing .eq-bar:nth-child(6)  { animation: eqBounce 0.34s infinite alternate ease-in-out 0.15s; }
-        .playing .eq-bar:nth-child(7)  { animation: eqBounce 0.45s infinite alternate ease-in-out 0.02s; }
-        .playing .eq-bar:nth-child(8)  { animation: eqBounce 0.27s infinite alternate ease-in-out 0.18s; }
-        .playing .eq-bar:nth-child(9)  { animation: eqBounce 0.39s infinite alternate ease-in-out 0.07s; }
-        .playing .eq-bar:nth-child(10) { animation: eqBounce 0.32s infinite alternate ease-in-out 0.11s; }
-        .playing .eq-bar:nth-child(11) { animation: eqBounce 0.44s infinite alternate ease-in-out 0.04s; }
-        .playing .eq-bar:nth-child(12) { animation: eqBounce 0.36s infinite alternate ease-in-out 0.14s; }
-
-        @keyframes eqBounce {
-            0%   { height: 10%; }
-            40%  { height: 95%; }
-            70%  { height: 45%; }
-            100% { height: 80%; }
+        .label {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #00ffff;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        /* Animación de giro rápida a 1.8s */
-        .turntable.playing {
+        /* Giro real del vinilo */
+        .playing .vinyl {
             animation: spin 1.8s linear infinite;
         }
 
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+        }
+
+        /* Aguja Truco Visual */
+        .needle {
+            position: absolute;
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(
+                90deg,
+                silver,
+                white
+            );
+            top: 40px;
+            right: 20px;
+            transform-origin: left center;
+            transform: rotate(25deg);
+            box-shadow: 0 0 10px cyan;
+            z-index: 5;
+            pointer-events: none;
         }
 
         .track-selector {
@@ -363,27 +376,19 @@
 
         <div class="dj-booth-container">
             <!-- DECK A -->
-            <div class="deck" id="deck-a-box">
+            <div class="deck" id="deck-a">
                 <h2>Deck A <span>[Master A]</span></h2>
                 
-                <div class="equalizer-container turntable" id="eq-a">
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
+                <div class="turntable">
+                    <div class="vinyl">
+                        <div class="label"></div>
+                    </div>
                 </div>
+                <div class="needle"></div>
 
                 <div class="track-selector">
                     <label for="select-a">Seleccionar Track (Deck A):</label>
-                    <select id="select-a" onchange="onTrackChange('a')">
+                    <select id="select-a" onchange="onTrackChange('deck-a')">
                         <option value="https://soundcloud.com/aaron-sevilla/afrohouse-mesa-que-ma-s">1. Mesa que más aplauda</option>
                         <option value="https://soundcloud.com/aaron-sevilla/valgame-dios">2. Válgame Dios</option>
                         <option value="https://soundcloud.com/aaron-sevilla/aaron-sevilla-afrodise-tulum">3. Afrodise Tulum</option>
@@ -391,42 +396,34 @@
                         <option value="https://soundcloud.com/aaron-sevilla/aaron-sevilla-afrohouse-dj-set-at-mia-tulum">5. Live at Mia Tulum</option>
                         <option value="https://soundcloud.com/aaron-sevilla/afrohouse-interestellar">6. Interestellar</option>
                         <option value="https://soundcloud.com/aaron-sevilla/afrohouse-tengo" selected>7. Tengo</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/aaron-sevilla-afrodise-dubai-afro-house">8. Afrodise Dubai</option>
+                        <option value="https://soundcloud.com/aaron-sevilla/afrodise-dubai-afro-house">8. Afrodise Dubai</option>
                         <option value="https://soundcloud.com/aaron-sevilla/aaron-sevilla-plaza-espana">9. Plaza España Set</option>
                         <option value="https://soundcloud.com/aaron-sevilla/desa-kitsune-bali-2025-afro-house-afro-latin-house">10. Desa Kitsune Bali</option>
                     </select>
                 </div>
                 <div class="deck-btns">
-                    <button class="btn-play" onclick="playTrack('a')">PLAY</button>
-                    <button class="btn-pause" onclick="pauseTrack('a')">STOP</button>
+                    <button class="btn-play" onclick="playDeck('deck-a')">PLAY</button>
+                    <button class="btn-pause" onclick="stopDeck('deck-a')">STOP</button>
                 </div>
                 <div class="hidden-player">
-                    <iframe id="sc-player-a" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-tengo&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false"></iframe>
+                    <iframe id="sc-player-deck-a" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-tengo&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false"></iframe>
                 </div>
             </div>
 
             <!-- DECK B -->
-            <div class="deck" id="deck-b-box">
+            <div class="deck" id="deck-b">
                 <h2>Deck B <span>[Master B]</span></h2>
                 
-                <div class="equalizer-container turntable" id="eq-b">
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
-                    <div class="eq-bar"></div>
+                <div class="turntable">
+                    <div class="vinyl">
+                        <div class="label"></div>
+                    </div>
                 </div>
+                <div class="needle"></div>
 
                 <div class="track-selector">
                     <label for="select-b">Seleccionar Track (Deck B):</label>
-                    <select id="select-b" onchange="onTrackChange('b')">
+                    <select id="select-b" onchange="onTrackChange('deck-b')">
                         <option value="https://soundcloud.com/aaron-sevilla/afrohouse-jaguar" selected>1. Jaguar</option>
                         <option value="https://soundcloud.com/aaron-sevilla/caracas-venezuela-techraza-exclusive-afro-house-dj-set">2. Caracas Techraza Exclusive</option>
                         <option value="https://soundcloud.com/aaron-sevilla/el-rey">3. El Rey</option>
@@ -440,11 +437,11 @@
                     </select>
                 </div>
                 <div class="deck-btns">
-                    <button class="btn-play" onclick="playTrack('b')">PLAY</button>
-                    <button class="btn-pause" onclick="pauseTrack('b')">STOP</button>
+                    <button class="btn-play" onclick="playDeck('deck-b')">PLAY</button>
+                    <button class="btn-pause" onclick="stopDeck('deck-b')">STOP</button>
                 </div>
                 <div class="hidden-player">
-                    <iframe id="sc-player-b" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-jaguar&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false"></iframe>
+                    <iframe id="sc-player-deck-b" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-jaguar&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false"></iframe>
                 </div>
             </div>
         </div>
@@ -475,8 +472,8 @@
         let isReadyA = false, isReadyB = false;
 
         document.addEventListener('DOMContentLoaded', () => {
-            const iframeA = document.getElementById('sc-player-a');
-            const iframeB = document.getElementById('sc-player-b');
+            const iframeA = document.getElementById('sc-player-deck-a');
+            const iframeB = document.getElementById('sc-player-deck-b');
 
             widgetA = SC.Widget(iframeA);
             widgetB = SC.Widget(iframeB);
@@ -492,37 +489,35 @@
             });
         });
 
-        function playTrack(deck) {
-            const widget = deck === 'a' ? widgetA : widgetB;
-            const eq = document.getElementById(`eq-${deck}`);
+        function playDeck(deckId) {
+            const widget = deckId === 'deck-a' ? widgetA : widgetB;
+            const isReady = deckId === 'deck-a' ? isReadyA : isReadyB;
 
+            document.querySelector(`#${deckId} .turntable`).classList.add("playing");
             if (widget) {
                 widget.play();
-                if (eq) eq.classList.add('playing');
             }
         }
 
-        function pauseTrack(deck) {
-            const widget = deck === 'a' ? widgetA : widgetB;
-            const eq = document.getElementById(`eq-${deck}`);
+        function stopDeck(deckId) {
+            const widget = deckId === 'deck-a' ? widgetA : widgetB;
 
+            document.querySelector(`#${deckId} .turntable`).classList.remove("playing");
             if (widget) {
                 widget.pause();
-                if (eq) eq.classList.remove('playing');
             }
         }
 
-        function onTrackChange(deck) {
-            const selectVal = document.getElementById(`select-${deck}`).value;
-            const widget = deck === 'a' ? widgetA : widgetB;
-            const eq = document.getElementById(`eq-${deck}`);
+        function onTrackChange(deckId) {
+            const selectVal = document.getElementById(deckId === 'deck-a' ? 'select-a' : 'select-b').value;
+            const widget = deckId === 'deck-a' ? widgetA : widgetB;
 
             if (widget) {
                 widget.load(selectVal, {
                     auto_play: true,
                     callback: function() {
                         widget.play();
-                        if (eq) eq.classList.add('playing');
+                        document.querySelector(`#${deckId} .turntable`).classList.add("playing");
                         updateCrossfader();
                     }
                 });
@@ -533,12 +528,11 @@
             updateCrossfader();
         }
 
-        /* Mezcla Simultánea Real de Ambos Decks */
+        /* Mezcla Simultánea Real de Ambos Decks (Crossfader) */
         function updateCrossfader() {
             const position = parseFloat(document.getElementById('crossfader').value); // 0 a 100
             const masterVol = parseFloat(document.getElementById('master-volume').value); // 0 a 100
 
-            // Cálculo de atenuación balanceada de 0 a 1
             // 0 = Solo Deck A (100%), 50 = Ambos Decks (100%), 100 = Solo Deck B (100%)
             let factorA = position <= 50 ? 1 : (100 - position) / 50;
             let factorB = position >= 50 ? 1 : position / 50;
