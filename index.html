@@ -58,7 +58,6 @@
             margin: auto;
         }
 
-        /* Paneles con cristal translúcido para ver la imagen de fondo */
         .deck {
             background: rgba(10, 15, 25, 0.35);
             border: 1px solid rgba(0, 255, 204, 0.25);
@@ -81,43 +80,55 @@
             align-items: center;
         }
 
-        /* Vúmetro / Barras de ecualizador multicolor */
+        /* Vúmetro de Alta Definición (12 Barras) */
         .equalizer-container {
-            height: 50px;
-            width: 140px;
+            height: 60px;
+            width: 180px;
             margin: 10px auto 15px auto;
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            gap: 6px;
-            padding: 4px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(0, 255, 204, 0.3);
+            gap: 4px;
+            padding: 6px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 204, 0.4);
             border-radius: 8px;
-            box-shadow: 0 0 12px rgba(0, 255, 204, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
         }
 
         .eq-bar {
-            width: 10px;
-            height: 15%;
-            background: linear-gradient(to top, #00ffcc 0%, #ff007f 60%, #ffe600 100%);
+            flex: 1;
+            height: 8%;
+            background: linear-gradient(to top, #00ffcc 0%, #ff007f 65%, #ffe600 100%);
             border-radius: 2px;
-            transition: height 0.15s ease-in-out;
-            box-shadow: 0 0 6px rgba(255, 0, 127, 0.5);
+            transition: height 0.1s ease-in-out;
+            opacity: 0.4;
         }
 
-        /* Animación fluida de las barras cuando está reproduciendo */
-        .playing .eq-bar:nth-child(1) { animation: bounce 0.45s infinite alternate ease-in-out; }
-        .playing .eq-bar:nth-child(2) { animation: bounce 0.35s infinite alternate ease-in-out 0.1s; }
-        .playing .eq-bar:nth-child(3) { animation: bounce 0.55s infinite alternate ease-in-out 0.2s; }
-        .playing .eq-bar:nth-child(4) { animation: bounce 0.40s infinite alternate ease-in-out 0.05s; }
-        .playing .eq-bar:nth-child(5) { animation: bounce 0.50s infinite alternate ease-in-out 0.15s; }
-        .playing .eq-bar:nth-child(6) { animation: bounce 0.38s infinite alternate ease-in-out 0.25s; }
+        /* Animación Neón activa al reproducir */
+        .playing .eq-bar {
+            opacity: 1;
+            box-shadow: 0 0 8px rgba(255, 0, 127, 0.6);
+        }
 
-        @keyframes bounce {
-            0% { height: 15%; }
-            50% { height: 95%; }
-            100% { height: 40%; }
+        .playing .eq-bar:nth-child(1)  { animation: eqBounce 0.38s infinite alternate ease-in-out 0.00s; }
+        .playing .eq-bar:nth-child(2)  { animation: eqBounce 0.29s infinite alternate ease-in-out 0.08s; }
+        .playing .eq-bar:nth-child(3)  { animation: eqBounce 0.42s infinite alternate ease-in-out 0.03s; }
+        .playing .eq-bar:nth-child(4)  { animation: eqBounce 0.31s infinite alternate ease-in-out 0.12s; }
+        .playing .eq-bar:nth-child(5)  { animation: eqBounce 0.48s infinite alternate ease-in-out 0.05s; }
+        .playing .eq-bar:nth-child(6)  { animation: eqBounce 0.34s infinite alternate ease-in-out 0.15s; }
+        .playing .eq-bar:nth-child(7)  { animation: eqBounce 0.45s infinite alternate ease-in-out 0.02s; }
+        .playing .eq-bar:nth-child(8)  { animation: eqBounce 0.27s infinite alternate ease-in-out 0.18s; }
+        .playing .eq-bar:nth-child(9)  { animation: eqBounce 0.39s infinite alternate ease-in-out 0.07s; }
+        .playing .eq-bar:nth-child(10) { animation: eqBounce 0.32s infinite alternate ease-in-out 0.11s; }
+        .playing .eq-bar:nth-child(11) { animation: eqBounce 0.44s infinite alternate ease-in-out 0.04s; }
+        .playing .eq-bar:nth-child(12) { animation: eqBounce 0.36s infinite alternate ease-in-out 0.14s; }
+
+        @keyframes eqBounce {
+            0%   { height: 10%; }
+            40%  { height: 95%; }
+            70%  { height: 45%; }
+            100% { height: 80%; }
         }
 
         .track-selector {
@@ -277,8 +288,13 @@
         <div class="deck" id="deck-a-box">
             <h2>Deck A <span>[Master A]</span></h2>
             
-            <!-- Barras Multicolor Ecualizador en lugar de plato opaco -->
             <div class="equalizer-container" id="eq-a">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
                 <div class="eq-bar"></div>
                 <div class="eq-bar"></div>
                 <div class="eq-bar"></div>
@@ -315,8 +331,13 @@
         <div class="deck" id="deck-b-box">
             <h2>Deck B <span>[Master B]</span></h2>
             
-            <!-- Barras Multicolor Ecualizador en lugar de plato opaco -->
             <div class="equalizer-container" id="eq-b">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
                 <div class="eq-bar"></div>
                 <div class="eq-bar"></div>
                 <div class="eq-bar"></div>
@@ -341,7 +362,8 @@
                 </select>
             </div>
             <div class="deck-btns">
-                <button class="btn-play" onclick="playTrack('a')">PLAY</button>
+                <!-- CORREGIDO: playTrack('b') -->
+                <button class="btn-play" onclick="playTrack('b')">PLAY</button>
                 <button class="btn-pause" onclick="pauseTrack('b')">STOP</button>
             </div>
             <div class="hidden-player">
@@ -392,14 +414,9 @@
 
         function playTrack(deck) {
             const widget = deck === 'a' ? widgetA : widgetB;
-            const isReady = deck === 'a' ? isReadyA : isReadyB;
             const eq = document.getElementById(`eq-${deck}`);
 
-            if (widget && isReady) {
-                widget.play();
-                if (eq) eq.classList.add('playing');
-            } else if (widget) {
-                // Si la API aún no dio el READY exacto, forzamos play tras el click
+            if (widget) {
                 widget.play();
                 if (eq) eq.classList.add('playing');
             }
