@@ -1,549 +1,72 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alpine Rave 3000m - DJ Booth</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<style>
+  footer {
+    text-align: center;
+    padding: 15px 10px;
+    background: rgba(0, 0, 0, 0.9);
+    width: 100%;
+    font-size: 0.8rem;
+    color: #aaa;
+    border-top: 1px solid rgba(0, 255, 204, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
 
-        body {
-            background: linear-gradient(rgba(10, 15, 30, 0.45), rgba(10, 15, 30, 0.65)), url('./images/dj_booth.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            overflow-x: hidden;
-            position: relative;
-        }
+  .footer-legal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
 
-        /* Efecto Cámara en Directo */
-        #mainContainer {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            min-height: 100vh;
-            animation: cameraPulse 8s ease-in-out infinite;
-        }
+  .flag-icon {
+    width: 20px;
+    height: 14px;
+    background: linear-gradient(to bottom, #AA151B 25%, #F1BF00 25%, #F1BF00 75%, #AA151B 75%);
+    border-radius: 2px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+  }
 
-        @keyframes cameraPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
+  .footer-text {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
 
-        /* Focos de luz dinámicos (.beam) */
-        .beam {
-            position: absolute;
-            top: 0;
-            width: 300px;
-            height: 800px;
-            background: linear-gradient(
-                rgba(0,255,255,.4),
-                transparent
-            );
-            filter: blur(30px);
-            transform-origin: top center;
-            animation: sweep 4s infinite alternate;
-            pointer-events: none;
-            z-index: 1;
-        }
+  .footer-links {
+    display: flex;
+    gap: 15px;
+    font-size: 0.75rem;
+    margin-top: 4px;
+  }
 
-        .beam-right {
-            right: 15%;
-            background: linear-gradient(
-                rgba(255,0,170,.4),
-                transparent
-            );
-            animation-delay: -2s;
-        }
+  .footer-links a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
 
-        @keyframes sweep {
-            from { transform: rotate(-40deg); }
-            to { transform: rotate(40deg); }
-        }
+  .footer-links a:hover {
+    color: #00ffcc;
+  }
+</style>
 
-        header {
-            text-align: center;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.65);
-            width: 100%;
-            border-bottom: 2px solid #00ffcc;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
-            backdrop-filter: blur(5px);
-            position: relative;
-            z-index: 2;
-        }
+<footer>
+  <div class="footer-legal-badge">
+    <div class="flag-icon" title="España"></div>
+    <span class="footer-text">
+      Gobierno de España | Ministerio de la Felicidad y el Descontrol. Fuma con responsabilidad 🌿. 🔞 Web no autorizada
+    </span>
+  </div>
 
-        header h1 {
-            font-size: 2rem;
-            letter-spacing: 3px;
-            color: #00ffcc;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
-        }
+  <div class="footer-links">
+    <a href="aviso-legal.html">Aviso Legal</a> |
+    <a href="privacidad.html">Privacidad</a> |
+    <a href="cookies.html">Cookies</a>
+  </div>
 
-        header p {
-            font-size: 0.85rem;
-            color: #aaa;
-            margin-top: 3px;
-        }
-
-        .dj-booth-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-            padding: 20px;
-            width: 100%;
-            max-width: 1300px;
-            margin: auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .deck {
-            background: rgba(10, 15, 25, 0.35);
-            border: 1px solid rgba(0, 255, 204, 0.25);
-            border-radius: 15px;
-            padding: 20px 25px;
-            width: 420px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(6px);
-            text-align: center;
-            position: relative;
-        }
-
-        .deck h2 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: #ff007f;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            padding-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Estilos de la tornamesa y vinilo */
-        .turntable {
-            width: 160px;
-            height: 160px;
-            margin: 15px auto;
-            position: relative;
-        }
-
-        .vinyl {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at center,
-                #ff00aa 0%,
-                #ff00aa 8%,
-                #222 9%,
-                #111 30%,
-                #000 100%);
-            box-shadow: 
-                0 0 15px #00ffff,
-                0 0 40px rgba(0,255,204,.5);
-            position: relative;
-        }
-
-        .vinyl::before {
-            content: '';
-            position: absolute;
-            inset: 15px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,.08);
-        }
-
-        .label {
-            position: absolute;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: #00ffff;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* Giro real del vinilo */
-        .playing .vinyl {
-            animation: spin 1.8s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Aguja Truco Visual */
-        .needle {
-            position: absolute;
-            width: 100px;
-            height: 5px;
-            background: linear-gradient(
-                90deg,
-                silver,
-                white
-            );
-            top: 40px;
-            right: 20px;
-            transform-origin: left center;
-            transform: rotate(25deg);
-            box-shadow: 0 0 10px cyan;
-            z-index: 5;
-            pointer-events: none;
-        }
-
-        .track-selector {
-            margin-top: 15px;
-            text-align: left;
-        }
-
-        .track-selector label {
-            display: block;
-            font-size: 0.8rem;
-            color: #bbb;
-            margin-bottom: 5px;
-        }
-
-        .track-selector select {
-            width: 100%;
-            padding: 10px;
-            background: rgba(15, 20, 30, 0.85);
-            color: #fff;
-            border: 1px solid #444;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .track-selector select:focus {
-            border-color: #00ffcc;
-        }
-
-        .deck-btns {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .btn-play {
-            flex: 1;
-            padding: 10px;
-            background: #00ffcc;
-            color: #000;
-            font-weight: bold;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-play:hover {
-            background: #00cca3;
-            box-shadow: 0 0 10px rgba(0,255,204,0.6);
-        }
-
-        .btn-pause {
-            flex: 1;
-            padding: 10px;
-            background: #ff007f;
-            color: #fff;
-            font-weight: bold;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-pause:hover {
-            background: #d00067;
-            box-shadow: 0 0 10px rgba(255,0,127,0.6);
-        }
-
-        .hidden-player {
-            position: absolute;
-            width: 0;
-            height: 0;
-            overflow: hidden;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .mixer-controls {
-            background: rgba(10, 15, 25, 0.75);
-            border-top: 2px solid #00ffcc;
-            padding: 15px 40px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 50px;
-            box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
-            backdrop-filter: blur(8px);
-            position: relative;
-            z-index: 2;
-        }
-
-        .fader-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .fader-group label {
-            font-size: 0.8rem;
-            color: #00ffcc;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Estilo Gradiente del Crossfader */
-        .crossfader {
-            background: linear-gradient(
-                90deg,
-                #00ffff,
-                #ff00aa
-            );
-            height: 6px;
-            border-radius: 10px;
-        }
-
-        input[type=range] {
-            -webkit-appearance: none;
-            width: 220px;
-            outline: none;
-        }
-
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #ff007f;
-            cursor: pointer;
-            box-shadow: 0 0 8px #ff007f;
-        }
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background: rgba(0,0,0,0.85);
-            width: 100%;
-            font-size: 0.75rem;
-            color: #888;
-            position: relative;
-            z-index: 2;
-        }
-
-        @media (max-width: 900px) {
-            .deck {
-                width: 100%;
-                max-width: 450px;
-            }
-            .mixer-controls {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div id="mainContainer">
-        <!-- Focos Neón de Escenario (Beam Lights) -->
-        <div class="beam"></div>
-        <div class="beam beam-right"></div>
-
-        <header>
-            <h1>ALPINE RAVE 3000M</h1>
-            <p>High-Altitude Afro-House DJ Booth | Dual Deck Experience</p>
-        </header>
-
-        <div class="dj-booth-container">
-            <!-- DECK A -->
-            <div class="deck" id="deck-a">
-                <h2>Deck A <span>[Master A]</span></h2>
-                
-                <div class="turntable">
-                    <div class="vinyl">
-                        <div class="label"></div>
-                    </div>
-                </div>
-                <div class="needle"></div>
-
-                <div class="track-selector">
-                    <label for="select-a">Seleccionar Track (Deck A):</label>
-                    <select id="select-a" onchange="onTrackChange('deck-a')">
-                        <option value="https://soundcloud.com/aaron-sevilla/afrohouse-mesa-que-ma-s">1. Mesa que más aplauda</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/valgame-dios">2. Válgame Dios</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/aaron-sevilla-afrodise-tulum">3. Afrodise Tulum</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/afrohouse-habibi-weinak">4. Habibi Weinak</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/aaron-sevilla-afrohouse-dj-set-at-mia-tulum">5. Live at Mia Tulum</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/afrohouse-interestellar">6. Interestellar</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/afrohouse-tengo" selected>7. Tengo</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/afrodise-dubai-afro-house">8. Afrodise Dubai</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/aaron-sevilla-plaza-espana">9. Plaza España Set</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/desa-kitsune-bali-2025-afro-house-afro-latin-house">10. Desa Kitsune Bali</option>
-                    </select>
-                </div>
-                <div class="deck-btns">
-                    <button class="btn-play" onclick="playDeck('deck-a')">PLAY</button>
-                    <button class="btn-pause" onclick="stopDeck('deck-a')">STOP</button>
-                </div>
-                <div class="hidden-player">
-                    <iframe id="sc-player-deck-a" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-tengo&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false"></iframe>
-                </div>
-            </div>
-
-            <!-- DECK B -->
-            <div class="deck" id="deck-b">
-                <h2>Deck B <span>[Master B]</span></h2>
-                
-                <div class="turntable">
-                    <div class="vinyl">
-                        <div class="label"></div>
-                    </div>
-                </div>
-                <div class="needle"></div>
-
-                <div class="track-selector">
-                    <label for="select-b">Seleccionar Track (Deck B):</label>
-                    <select id="select-b" onchange="onTrackChange('deck-b')">
-                        <option value="https://soundcloud.com/aaron-sevilla/afrohouse-jaguar" selected>1. Jaguar</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/caracas-venezuela-techraza-exclusive-afro-house-dj-set">2. Caracas Techraza Exclusive</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/el-rey">3. El Rey</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/afrohouse-01-a-dos-amigos">4. A Dos Amigos</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/afro-house-dj-set-at-yona-beach-2025">5. Yona Beach 2025</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/afrohouse-da-iubirea-mai-tare">6. Da Iubirea Mai Tare</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/afro-house-aaronsevilla-3">7. AaronSevilla 3</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/aaron-sevilla-at-cova-santa-ibiza">8. Cova Santa Ibiza</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/afrohouse-aaronsevilla-1">9. AaronSevilla 1</option>
-                        <option value="https://soundcloud.com/aaron-sevilla/afro-house-aaron-sevilla-8">10. Aaron Sevilla 8</option>
-                    </select>
-                </div>
-                <div class="deck-btns">
-                    <button class="btn-play" onclick="playDeck('deck-b')">PLAY</button>
-                    <button class="btn-pause" onclick="stopDeck('deck-b')">STOP</button>
-                </div>
-                <div class="hidden-player">
-                    <iframe id="sc-player-deck-b" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-jaguar&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false"></iframe>
-                </div>
-            </div>
-        </div>
-
-        <!-- MESA DE MEZCLAS CENTRAL -->
-        <div class="mixer-controls">
-            <div class="fader-group">
-                <label>Master Volume</label>
-                <input type="range" id="master-volume" min="0" max="100" value="80" oninput="updateMasterVolume()">
-            </div>
-            <div class="fader-group">
-                <label>Crossfader [Deck A &lt;-&gt; Deck B]</label>
-                <input type="range" id="crossfader" class="crossfader" min="0" max="100" value="50" oninput="updateCrossfader()">
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2026 Alpine Rave 3000m Project | Built for high-altitude sessions</p>
-        </footer>
-    </div>
-
-    <!-- Three.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js"></script>
-    <!-- SoundCloud Widget API Script -->
-    <script src="https://w.soundcloud.com/player/api.js"></script>
-    <script>
-        let widgetA, widgetB;
-        let isReadyA = false, isReadyB = false;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const iframeA = document.getElementById('sc-player-deck-a');
-            const iframeB = document.getElementById('sc-player-deck-b');
-
-            widgetA = SC.Widget(iframeA);
-            widgetB = SC.Widget(iframeB);
-
-            widgetA.bind(SC.Widget.Events.READY, () => {
-                isReadyA = true;
-                updateCrossfader();
-            });
-
-            widgetB.bind(SC.Widget.Events.READY, () => {
-                isReadyB = true;
-                updateCrossfader();
-            });
-        });
-
-        function playDeck(deckId) {
-            const widget = deckId === 'deck-a' ? widgetA : widgetB;
-            const isReady = deckId === 'deck-a' ? isReadyA : isReadyB;
-
-            document.querySelector(`#${deckId} .turntable`).classList.add("playing");
-            if (widget) {
-                widget.play();
-            }
-        }
-
-        function stopDeck(deckId) {
-            const widget = deckId === 'deck-a' ? widgetA : widgetB;
-
-            document.querySelector(`#${deckId} .turntable`).classList.remove("playing");
-            if (widget) {
-                widget.pause();
-            }
-        }
-
-        function onTrackChange(deckId) {
-            const selectVal = document.getElementById(deckId === 'deck-a' ? 'select-a' : 'select-b').value;
-            const widget = deckId === 'deck-a' ? widgetA : widgetB;
-
-            if (widget) {
-                widget.load(selectVal, {
-                    auto_play: true,
-                    callback: function() {
-                        widget.play();
-                        document.querySelector(`#${deckId} .turntable`).classList.add("playing");
-                        updateCrossfader();
-                    }
-                });
-            }
-        }
-
-        function updateMasterVolume() {
-            updateCrossfader();
-        }
-
-        /* Mezcla Simultánea Real de Ambos Decks (Crossfader) */
-        function updateCrossfader() {
-            const position = parseFloat(document.getElementById('crossfader').value); // 0 a 100
-            const masterVol = parseFloat(document.getElementById('master-volume').value); // 0 a 100
-
-            // 0 = Solo Deck A (100%), 50 = Ambos Decks (100%), 100 = Solo Deck B (100%)
-            let factorA = position <= 50 ? 1 : (100 - position) / 50;
-            let factorB = position >= 50 ? 1 : position / 50;
-
-            const finalVolA = masterVol * factorA;
-            const finalVolB = masterVol * factorB;
-
-            if (widgetA && isReadyA) widgetA.setVolume(finalVolA);
-            if (widgetB && isReadyB) widgetB.setVolume(finalVolB);
-        }
-    </script>
-
-</body>
-</html>
+  <p style="margin-top: 4px; font-size: 0.7rem; color: #555;">&copy; 2026 Alpine Rave 3000m Project | Built for high-altitude sessions</p>
+</footer>
