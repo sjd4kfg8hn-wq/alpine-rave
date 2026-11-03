@@ -326,16 +326,78 @@
             box-shadow: 0 0 8px #ff007f;
         }
 
-        footer {
-            text-align: center;
-            padding: 10px;
-            background: rgba(0,0,0,0.85);
-            width: 100%;
-            font-size: 0.75rem;
-            color: #888;
-            position: relative;
-            z-index: 2;
-        }
+        <style>
+  footer {
+    text-align: center;
+    padding: 15px 10px;
+    background: rgba(0, 0, 0, 0.9);
+    width: 100%;
+    font-size: 0.8rem;
+    color: #aaa;
+    border-top: 1px solid rgba(0, 255, 204, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footer-legal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .flag-icon {
+    width: 20px;
+    height: 14px;
+    background: linear-gradient(to bottom, #AA151B 25%, #F1BF00 25%, #F1BF00 75%, #AA151B 75%);
+    border-radius: 2px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+  }
+
+  .footer-text {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 15px;
+    font-size: 0.75rem;
+    margin-top: 4px;
+  }
+
+  .footer-links a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: #00ffcc;
+  }
+</style>
+
+<footer>
+  <div class="footer-legal-badge">
+    <div class="flag-icon" title="España"></div>
+    <span class="footer-text">
+      Gobierno de España | Ministerio de la Felicidad y el Descontrol. Fuma con responsabilidad 🌿. 🔞 Web no autorizada
+    </span>
+  </div>
+
+  <div class="footer-links">
+    <a href="aviso-legal.html">Aviso Legal</a> |
+    <a href="privacidad.html">Privacidad</a> |
+    <a href="cookies.html">Cookies</a>
+  </div>
+
+  <p style="margin-top: 4px; font-size: 0.7rem; color: #555;">&copy; 2026 Alpine Rave 3000m Project | Built for high-altitude sessions</p>
+</footer>
 
         @media (max-width: 900px) {
             .deck {
