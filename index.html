@@ -13,7 +13,7 @@
         }
 
         body {
-            background: linear-gradient(rgba(10, 15, 30, 0.4), rgba(10, 15, 30, 0.6)), url('./images/dj_booth.jpg') no-repeat center center fixed;
+            background: linear-gradient(rgba(10, 15, 30, 0.45), rgba(10, 15, 30, 0.65)), url('./images/dj_booth.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
             min-height: 100vh;
@@ -58,15 +58,15 @@
             margin: auto;
         }
 
-        /* Paneles ultra transparentes para ver la fiesta */
+        /* Paneles con cristal translúcido para ver la imagen de fondo */
         .deck {
             background: rgba(10, 15, 25, 0.35);
-            border: 1px solid rgba(0, 255, 204, 0.2);
+            border: 1px solid rgba(0, 255, 204, 0.25);
             border-radius: 15px;
             padding: 20px 25px;
             width: 420px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(6px);
             text-align: center;
         }
 
@@ -74,47 +74,50 @@
             font-size: 1.3rem;
             margin-bottom: 15px;
             color: #ff007f;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             padding-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* Discos ultra pequeños y minimalistas */
-        .turntable {
-            width: 45px;
-            height: 45px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 50%;
+        /* Vúmetro / Barras de ecualizador multicolor */
+        .equalizer-container {
+            height: 50px;
+            width: 140px;
             margin: 10px auto 15px auto;
-            border: 2px solid rgba(0, 255, 204, 0.5);
-            box-shadow: 0 0 10px rgba(0,255,204,0.3);
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
-            position: relative;
-            animation: spin 6s linear infinite;
-            animation-play-state: paused;
+            gap: 6px;
+            padding: 4px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 0 12px rgba(0, 255, 204, 0.2);
         }
 
-        .turntable.playing {
-            animation-play-state: running;
-            border-color: #ff007f;
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.8);
+        .eq-bar {
+            width: 10px;
+            height: 15%;
+            background: linear-gradient(to top, #00ffcc 0%, #ff007f 60%, #ffe600 100%);
+            border-radius: 2px;
+            transition: height 0.15s ease-in-out;
+            box-shadow: 0 0 6px rgba(255, 0, 127, 0.5);
         }
 
-        .turntable-center {
-            width: 14px;
-            height: 14px;
-            background: #ff007f;
-            border-radius: 50%;
-            border: 2px solid #fff;
-        }
+        /* Animación fluida de las barras cuando está reproduciendo */
+        .playing .eq-bar:nth-child(1) { animation: bounce 0.45s infinite alternate ease-in-out; }
+        .playing .eq-bar:nth-child(2) { animation: bounce 0.35s infinite alternate ease-in-out 0.1s; }
+        .playing .eq-bar:nth-child(3) { animation: bounce 0.55s infinite alternate ease-in-out 0.2s; }
+        .playing .eq-bar:nth-child(4) { animation: bounce 0.40s infinite alternate ease-in-out 0.05s; }
+        .playing .eq-bar:nth-child(5) { animation: bounce 0.50s infinite alternate ease-in-out 0.15s; }
+        .playing .eq-bar:nth-child(6) { animation: bounce 0.38s infinite alternate ease-in-out 0.25s; }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes bounce {
+            0% { height: 15%; }
+            50% { height: 95%; }
+            100% { height: 40%; }
         }
 
         .track-selector {
@@ -273,9 +276,17 @@
         <!-- DECK A -->
         <div class="deck" id="deck-a-box">
             <h2>Deck A <span>[Master A]</span></h2>
-            <div class="turntable" id="vinyl-a">
-                <div class="turntable-center"></div>
+            
+            <!-- Barras Multicolor Ecualizador en lugar de plato opaco -->
+            <div class="equalizer-container" id="eq-a">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
             </div>
+
             <div class="track-selector">
                 <label for="select-a">Seleccionar Track (Deck A):</label>
                 <select id="select-a" onchange="onTrackChange('a')">
@@ -296,16 +307,24 @@
                 <button class="btn-pause" onclick="pauseTrack('a')">STOP</button>
             </div>
             <div class="hidden-player">
-                <iframe id="sc-player-a" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-tengo&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false"></iframe>
+                <iframe id="sc-player-a" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-tengo&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false"></iframe>
             </div>
         </div>
 
         <!-- DECK B -->
         <div class="deck" id="deck-b-box">
             <h2>Deck B <span>[Master B]</span></h2>
-            <div class="turntable" id="vinyl-b">
-                <div class="turntable-center"></div>
+            
+            <!-- Barras Multicolor Ecualizador en lugar de plato opaco -->
+            <div class="equalizer-container" id="eq-b">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
             </div>
+
             <div class="track-selector">
                 <label for="select-b">Seleccionar Track (Deck B):</label>
                 <select id="select-b" onchange="onTrackChange('b')">
@@ -322,11 +341,11 @@
                 </select>
             </div>
             <div class="deck-btns">
-                <button class="btn-play" onclick="playTrack('b')">PLAY</button>
+                <button class="btn-play" onclick="playTrack('a')">PLAY</button>
                 <button class="btn-pause" onclick="pauseTrack('b')">STOP</button>
             </div>
             <div class="hidden-player">
-                <iframe id="sc-player-b" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-jaguar&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false"></iframe>
+                <iframe id="sc-player-b" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-jaguar&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false"></iframe>
             </div>
         </div>
     </div>
@@ -350,47 +369,78 @@
     <!-- SoundCloud Widget API Script -->
     <script src="https://w.soundcloud.com/player/api.js"></script>
     <script>
-        const widgetA = SC.Widget(document.getElementById('sc-player-a'));
-        const widgetB = SC.Widget(document.getElementById('sc-player-b'));
+        let widgetA, widgetB;
+        let isReadyA = false, isReadyB = false;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const iframeA = document.getElementById('sc-player-a');
+            const iframeB = document.getElementById('sc-player-b');
+
+            widgetA = SC.Widget(iframeA);
+            widgetB = SC.Widget(iframeB);
+
+            widgetA.bind(SC.Widget.Events.READY, () => {
+                isReadyA = true;
+                updateCrossfader();
+            });
+
+            widgetB.bind(SC.Widget.Events.READY, () => {
+                isReadyB = true;
+                updateCrossfader();
+            });
+        });
 
         function playTrack(deck) {
             const widget = deck === 'a' ? widgetA : widgetB;
-            const vinyl = document.getElementById(`vinyl-${deck}`);
-            
-            widget.play();
-            vinyl.classList.add('playing');
+            const isReady = deck === 'a' ? isReadyA : isReadyB;
+            const eq = document.getElementById(`eq-${deck}`);
+
+            if (widget && isReady) {
+                widget.play();
+                if (eq) eq.classList.add('playing');
+            } else if (widget) {
+                // Si la API aún no dio el READY exacto, forzamos play tras el click
+                widget.play();
+                if (eq) eq.classList.add('playing');
+            }
         }
 
         function pauseTrack(deck) {
             const widget = deck === 'a' ? widgetA : widgetB;
-            const vinyl = document.getElementById(`vinyl-${deck}`);
-            
-            widget.pause();
-            vinyl.classList.remove('playing');
+            const eq = document.getElementById(`eq-${deck}`);
+
+            if (widget) {
+                widget.pause();
+                if (eq) eq.classList.remove('playing');
+            }
         }
 
         function onTrackChange(deck) {
             const selectVal = document.getElementById(`select-${deck}`).value;
             const widget = deck === 'a' ? widgetA : widgetB;
-            const vinyl = document.getElementById(`vinyl-${deck}`);
+            const eq = document.getElementById(`eq-${deck}`);
 
-            widget.load(selectVal, {
-                callback: function() {
-                    widget.play();
-                    vinyl.classList.add('playing');
-                }
-            });
+            if (widget) {
+                widget.load(selectVal, {
+                    auto_play: true,
+                    callback: function() {
+                        widget.play();
+                        if (eq) eq.classList.add('playing');
+                        updateCrossfader();
+                    }
+                });
+            }
         }
 
         function updateMasterVolume() {
             const vol = document.getElementById('master-volume').value;
-            widgetA.setVolume(vol);
-            widgetB.setVolume(vol);
+            if (widgetA && isReadyA) widgetA.setVolume(vol);
+            if (widgetB && isReadyB) widgetB.setVolume(vol);
         }
 
         function updateCrossfader() {
-            const val = document.getElementById('crossfader').value;
-            const masterVol = document.getElementById('master-volume').value;
+            const val = parseFloat(document.getElementById('crossfader').value);
+            const masterVol = parseFloat(document.getElementById('master-volume').value);
             
             let volA = masterVol;
             let volB = masterVol;
@@ -401,8 +451,8 @@
                 volA = masterVol * ((100 - val) / 50);
             }
 
-            widgetA.setVolume(volA);
-            widgetB.setVolume(volB);
+            if (widgetA && isReadyA) widgetA.setVolume(volA);
+            if (widgetB && isReadyB) widgetB.setVolume(volB);
         }
     </script>
 
