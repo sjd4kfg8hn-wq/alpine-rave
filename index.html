@@ -13,7 +13,7 @@
         }
 
         body {
-            background: linear-gradient(rgba(10, 15, 30, 0.5), rgba(10, 15, 30, 0.7)), url('./images/dj_booth.jpg') no-repeat center center fixed;
+            background: linear-gradient(rgba(10, 15, 30, 0.4), rgba(10, 15, 30, 0.6)), url('./images/dj_booth.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
             min-height: 100vh;
@@ -27,10 +27,11 @@
         header {
             text-align: center;
             padding: 15px;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.65);
             width: 100%;
             border-bottom: 2px solid #00ffcc;
             box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+            backdrop-filter: blur(5px);
         }
 
         header h1 {
@@ -57,14 +58,15 @@
             margin: auto;
         }
 
+        /* Paneles ultra transparentes para ver la fiesta */
         .deck {
-            background: rgba(15, 20, 30, 0.85);
-            border: 2px solid #333;
+            background: rgba(10, 15, 25, 0.35);
+            border: 1px solid rgba(0, 255, 204, 0.2);
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px 25px;
             width: 420px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
             text-align: center;
         }
 
@@ -72,40 +74,42 @@
             font-size: 1.3rem;
             margin-bottom: 15px;
             color: #ff007f;
-            border-bottom: 1px solid #444;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        /* Discos ultra pequeños y minimalistas */
         .turntable {
-            width: 160px;
-            height: 160px;
-            background: #111;
+            width: 45px;
+            height: 45px;
+            background: rgba(0, 0, 0, 0.4);
             border-radius: 50%;
-            margin: 15px auto;
-            border: 6px solid #222;
-            box-shadow: 0 0 15px rgba(0,0,0,0.8), inset 0 0 15px rgba(0,255,204,0.2);
+            margin: 10px auto 15px auto;
+            border: 2px solid rgba(0, 255, 204, 0.5);
+            box-shadow: 0 0 10px rgba(0,255,204,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            animation: spin 10s linear infinite;
+            animation: spin 6s linear infinite;
             animation-play-state: paused;
         }
 
         .turntable.playing {
             animation-play-state: running;
-            box-shadow: 0 0 20px rgba(255,0,127,0.5), inset 0 0 15px rgba(0,255,204,0.4);
+            border-color: #ff007f;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.8);
         }
 
         .turntable-center {
-            width: 50px;
-            height: 50px;
+            width: 14px;
+            height: 14px;
             background: #ff007f;
             border-radius: 50%;
-            border: 3px solid #fff;
+            border: 2px solid #fff;
         }
 
         @keyframes spin {
@@ -128,7 +132,7 @@
         .track-selector select {
             width: 100%;
             padding: 10px;
-            background: #111;
+            background: rgba(15, 20, 30, 0.85);
             color: #fff;
             border: 1px solid #444;
             border-radius: 6px;
@@ -181,7 +185,6 @@
             box-shadow: 0 0 10px rgba(255,0,127,0.6);
         }
 
-        /* Ocultar el iframe visualmente pero mantenerlo activo en DOM */
         .hidden-player {
             position: absolute;
             width: 0;
@@ -192,15 +195,16 @@
         }
 
         .mixer-controls {
-            background: rgba(10, 15, 25, 0.95);
+            background: rgba(10, 15, 25, 0.75);
             border-top: 2px solid #00ffcc;
-            padding: 20px 40px;
+            padding: 15px 40px;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 50px;
             box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
         }
 
         .fader-group {
@@ -240,10 +244,10 @@
         footer {
             text-align: center;
             padding: 10px;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.85);
             width: 100%;
             font-size: 0.75rem;
-            color: #666;
+            color: #888;
         }
 
         @media (max-width: 900px) {
@@ -291,7 +295,6 @@
                 <button class="btn-play" onclick="playTrack('a')">PLAY</button>
                 <button class="btn-pause" onclick="pauseTrack('a')">STOP</button>
             </div>
-            <!-- Reproductor SoundCloud Oculto con URL base inicializada -->
             <div class="hidden-player">
                 <iframe id="sc-player-a" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-tengo&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false"></iframe>
             </div>
@@ -322,7 +325,6 @@
                 <button class="btn-play" onclick="playTrack('b')">PLAY</button>
                 <button class="btn-pause" onclick="pauseTrack('b')">STOP</button>
             </div>
-            <!-- Reproductor SoundCloud Oculto con URL base inicializada -->
             <div class="hidden-player">
                 <iframe id="sc-player-b" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-jaguar&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false"></iframe>
             </div>
@@ -390,8 +392,6 @@
             const val = document.getElementById('crossfader').value;
             const masterVol = document.getElementById('master-volume').value;
             
-            // Si el crossfader está en el centro (50), ambos suenan al 100% del volumen maestro.
-            // Si va hacia la izquierda (0), baja el deck B. Si va a la derecha (100), baja el deck A.
             let volA = masterVol;
             let volB = masterVol;
 
