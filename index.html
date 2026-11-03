@@ -13,7 +13,7 @@
         }
 
         body {
-            background: url('images/dj_booth.jpg') no-repeat center center fixed;
+            background: linear-gradient(rgba(10, 15, 30, 0.5), rgba(10, 15, 30, 0.7)), url('./images/dj_booth.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
             min-height: 100vh;
@@ -24,59 +24,52 @@
             overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 15, 30, 0.75);
-            z-index: -1;
-        }
-
         header {
             text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.75);
             width: 100%;
             border-bottom: 2px solid #00ffcc;
             box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
         }
 
         header h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             letter-spacing: 3px;
             color: #00ffcc;
             text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
         }
 
         header p {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #aaa;
-            margin-top: 5px;
+            margin-top: 3px;
         }
 
         .dj-booth-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
+            gap: 40px;
             padding: 20px;
             width: 100%;
-            max-width: 1400px;
+            max-width: 1300px;
             margin: auto;
         }
 
         .deck {
-            background: rgba(20, 25, 40, 0.85);
-            border: 2px solid #222;
+            background: rgba(15, 20, 30, 0.85);
+            border: 2px solid #333;
             border-radius: 15px;
-            padding: 20px;
-            width: 450px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
+            padding: 25px;
+            width: 420px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            text-align: center;
         }
 
         .deck h2 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             margin-bottom: 15px;
             color: #ff007f;
             border-bottom: 1px solid #444;
@@ -86,13 +79,49 @@
             align-items: center;
         }
 
+        /* Vinilo visual decorativo */
+        .turntable {
+            width: 160px;
+            height: 160px;
+            background: #111;
+            border-radius: 50%;
+            margin: 15px auto;
+            border: 6px solid #222;
+            box-shadow: 0 0 15px rgba(0,0,0,0.8), inset 0 0 15px rgba(0,255,204,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: spin 10s linear infinite;
+            animation-play-state: paused;
+        }
+
+        .turntable.playing {
+            animation-play-state: running;
+            box-shadow: 0 0 20px rgba(255,0,127,0.5), inset 0 0 15px rgba(0,255,204,0.4);
+        }
+
+        .turntable-center {
+            width: 50px;
+            height: 50px;
+            background: #ff007f;
+            border-radius: 50%;
+            border: 3px solid #fff;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         .track-selector {
-            margin-bottom: 15px;
+            margin-top: 15px;
+            text-align: left;
         }
 
         .track-selector label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #bbb;
             margin-bottom: 5px;
         }
@@ -104,7 +133,7 @@
             color: #fff;
             border: 1px solid #444;
             border-radius: 6px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             outline: none;
             cursor: pointer;
         }
@@ -113,26 +142,62 @@
             border-color: #00ffcc;
         }
 
-        .player-frame {
-            width: 100%;
-            height: 120px;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #000;
-            margin-bottom: 15px;
-            border: 1px solid #333;
+        .deck-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
         }
 
+        .btn-play {
+            flex: 1;
+            padding: 10px;
+            background: #00ffcc;
+            color: #000;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-play:hover {
+            background: #00cca3;
+            box-shadow: 0 0 10px rgba(0,255,204,0.6);
+        }
+
+        .btn-pause {
+            flex: 1;
+            padding: 10px;
+            background: #ff007f;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-pause:hover {
+            background: #d00067;
+            box-shadow: 0 0 10px rgba(255,0,127,0.6);
+        }
+
+        /* REPRODUCTORES SOUNDCLOUD OCULTOS (INVISIBLE) */
+        .hidden-player {
+            display: none;
+        }
+
+        /* MESA DE MEZCLAS CENTRAL */
         .mixer-controls {
-            background: rgba(15, 20, 30, 0.9);
+            background: rgba(10, 15, 25, 0.95);
             border-top: 2px solid #00ffcc;
-            padding: 15px 30px;
+            padding: 20px 40px;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 40px;
-            box-shadow: 0 -5px 25px rgba(0,0,0,0.6);
+            gap: 50px;
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
         }
 
         .fader-group {
@@ -151,17 +216,18 @@
 
         input[type=range] {
             -webkit-appearance: none;
-            width: 200px;
-            background: #333;
+            width: 220px;
+            background: #222;
             height: 6px;
             border-radius: 3px;
             outline: none;
+            border: 1px solid #444;
         }
 
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             background: #ff007f;
             cursor: pointer;
@@ -170,17 +236,17 @@
 
         footer {
             text-align: center;
-            padding: 15px;
-            background: rgba(0,0,0,0.8);
+            padding: 10px;
+            background: rgba(0,0,0,0.9);
             width: 100%;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #666;
         }
 
-        @media (max-width: 950px) {
+        @media (max-width: 900px) {
             .deck {
                 width: 100%;
-                max-width: 500px;
+                max-width: 450px;
             }
             .mixer-controls {
                 flex-direction: column;
@@ -198,61 +264,77 @@
 
     <div class="dj-booth-container">
         <!-- DECK A -->
-        <div class="deck" id="deck-a">
-            <h2>Deck A <span>[Afrohouse Master]</span></h2>
+        <div class="deck" id="deck-a-box">
+            <h2>Deck A <span>[Master A]</span></h2>
+            <div class="turntable" id="vinyl-a">
+                <div class="turntable-center"></div>
+            </div>
             <div class="track-selector">
                 <label for="select-a">Seleccionar Track (Deck A):</label>
-                <select id="select-a" onchange="changeTrack('a')">
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-mesa-que-ma-s&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">1. Mesa que más aplauda</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/valgame-dios&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">2. Válgame Dios</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/aaron-sevilla-afrodise-tulum&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">3. Afrodise Tulum</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-habibi-weinak&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">4. Habibi Weinak</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/aaron-sevilla-afrohouse-dj-set-at-mia-tulum&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">5. Live at Mia Tulum</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-interestellar&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">6. Interestellar</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-tengo&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false" selected>7. Tengo</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/aaron-sevilla-afrodise-dubai-afro-house&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">8. Afrodise Dubai</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/aaron-sevilla-plaza-espana&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">9. Plaza España Set</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/desa-kitsune-bali-2025-afro-house-afro-latin-house&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">10. Desa Kitsune Bali</option>
+                <select id="select-a">
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-mesa-que-ma-s&color=%23ff5500&auto_play=true">1. Mesa que más aplauda</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/valgame-dios&color=%23ff5500&auto_play=true">2. Válgame Dios</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/aaron-sevilla-afrodise-tulum&color=%23ff5500&auto_play=true">3. Afrodise Tulum</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-habibi-weinak&color=%23ff5500&auto_play=true">4. Habibi Weinak</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/aaron-sevilla-afrohouse-dj-set-at-mia-tulum&color=%23ff5500&auto_play=true">5. Live at Mia Tulum</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-interestellar&color=%23ff5500&auto_play=true">6. Interestellar</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-tengo&color=%23ff5500&auto_play=true" selected>7. Tengo</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/aaron-sevilla-afrodise-dubai-afro-house&color=%23ff5500&auto_play=true">8. Afrodise Dubai</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/aaron-sevilla-plaza-espana&color=%23ff5500&auto_play=true">9. Plaza España Set</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/desa-kitsune-bali-2025-afro-house-afro-latin-house&color=%23ff5500&auto_play=true">10. Desa Kitsune Bali</option>
                 </select>
             </div>
-            <div class="player-frame">
-                <iframe id="sc-player-a" width="100%" height="120" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-tengo&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe>
+            <div class="deck-btns">
+                <button class="btn-play" onclick="playTrack('a')">PLAY</button>
+                <button class="btn-pause" onclick="pauseTrack('a')">STOP</button>
+            </div>
+            <!-- Reproductor SoundCloud Oculto -->
+            <div class="hidden-player">
+                <iframe id="sc-player-a" width="100%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-tengo&color=%23ff5500&auto_play=false"></iframe>
             </div>
         </div>
 
         <!-- DECK B -->
-        <div class="deck" id="deck-b">
-            <h2>Deck B <span>[Afrohouse Master]</span></h2>
+        <div class="deck" id="deck-b-box">
+            <h2>Deck B <span>[Master B]</span></h2>
+            <div class="turntable" id="vinyl-b">
+                <div class="turntable-center"></div>
+            </div>
             <div class="track-selector">
                 <label for="select-b">Seleccionar Track (Deck B):</label>
-                <select id="select-b" onchange="changeTrack('b')">
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-jaguar&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false" selected>1. Jaguar</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/caracas-venezuela-techraza-exclusive-afro-house-dj-set&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">2. Caracas Techraza Exclusive</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/el-rey&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">3. El Rey</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-01-a-dos-amigos&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">4. A Dos Amigos</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afro-house-dj-set-at-yona-beach-2025&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">5. Yona Beach 2025</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-da-iubirea-mai-tare&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">6. Da Iubirea Mai Tare</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afro-house-aaronsevilla-3&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">7. AaronSevilla 3</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/aaron-sevilla-at-cova-santa-ibiza&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">8. Cova Santa Ibiza</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-aaronsevilla-1&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">9. AaronSevilla 1</option>
-                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afro-house-aaron-sevilla-8&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">10. Aaron Sevilla 8</option>
+                <select id="select-b">
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-jaguar&color=%23ff5500&auto_play=true" selected>1. Jaguar</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/caracas-venezuela-techraza-exclusive-afro-house-dj-set&color=%23ff5500&auto_play=true">2. Caracas Techraza Exclusive</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/el-rey&color=%23ff5500&auto_play=true">3. El Rey</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-01-a-dos-amigos&color=%23ff5500&auto_play=true">4. A Dos Amigos</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afro-house-dj-set-at-yona-beach-2025&color=%23ff5500&auto_play=true">5. Yona Beach 2025</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-da-iubirea-mai-tare&color=%23ff5500&auto_play=true">6. Da Iubirea Mai Tare</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afro-house-aaronsevilla-3&color=%23ff5500&auto_play=true">7. AaronSevilla 3</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/aaron-sevilla-at-cova-santa-ibiza&color=%23ff5500&auto_play=true">8. Cova Santa Ibiza</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-aaronsevilla-1&color=%23ff5500&auto_play=true">9. AaronSevilla 1</option>
+                    <option value="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afro-house-aaron-sevilla-8&color=%23ff5500&auto_play=true">10. Aaron Sevilla 8</option>
                 </select>
             </div>
-            <div class="player-frame">
-                <iframe id="sc-player-b" width="100%" height="120" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-jaguar&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe>
+            <div class="deck-btns">
+                <button class="btn-play" onclick="playTrack('b')">PLAY</button>
+                <button class="btn-pause" onclick="pauseTrack('b')">STOP</button>
+            </div>
+            <!-- Reproductor SoundCloud Oculto -->
+            <div class="hidden-player">
+                <iframe id="sc-player-b" width="100%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aaron-sevilla/afrohouse-jaguar&color=%23ff5500&auto_play=false"></iframe>
             </div>
         </div>
     </div>
 
-    <!-- CENTRAL MIXER CONSOLE -->
+    <!-- MESA DE MEZCLAS CENTRAL -->
     <div class="mixer-controls">
         <div class="fader-group">
             <label>Master Volume</label>
-            <input type="range" min="0" max="100" value="80">
+            <input type="range" id="master-volume" min="0" max="100" value="80">
         </div>
         <div class="fader-group">
             <label>Crossfader [Deck A &lt;-&gt; Deck B]</label>
-            <input type="range" min="0" max="100" value="50">
+            <input type="range" id="crossfader" min="0" max="100" value="50">
         </div>
     </div>
 
@@ -260,11 +342,31 @@
         <p>&copy; 2026 Alpine Rave 3000m Project | Built for high-altitude sessions</p>
     </footer>
 
+    <!-- SoundCloud Widget API Script -->
+    <script src="https://w.soundcloud.com/player/api.js"></script>
     <script>
-        function changeTrack(deck) {
-            const select = document.getElementById(`select-${deck}`);
-            const player = document.getElementById(`sc-player-${deck}`);
-            player.src = select.value;
+        const playerA = SC.Widget(document.getElementById('sc-player-a'));
+        const playerB = SC.Widget(document.getElementById('sc-player-b'));
+
+        function playTrack(deck) {
+            const selectVal = document.getElementById(`select-${deck}`).value;
+            const player = deck === 'a' ? playerA : playerB;
+            const vinyl = document.getElementById(`vinyl-${deck}`);
+
+            player.load(selectVal, {
+                callback: function() {
+                    player.play();
+                    vinyl.classList.add('playing');
+                }
+            });
+        }
+
+        function pauseTrack(deck) {
+            const player = deck === 'a' ? playerA : playerB;
+            const vinyl = document.getElementById(`vinyl-${deck}`);
+            
+            player.pause();
+            vinyl.classList.remove('playing');
         }
     </script>
 
