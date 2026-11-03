@@ -22,6 +22,38 @@
             align-items: center;
             justify-content: space-between;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Focos de luz dinámicos (.beam) */
+        .beam {
+            position: absolute;
+            top: 0;
+            width: 300px;
+            height: 800px;
+            background: linear-gradient(
+                rgba(0,255,255,.4),
+                transparent
+            );
+            filter: blur(30px);
+            transform-origin: top center;
+            animation: sweep 4s infinite alternate;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .beam-right {
+            right: 15%;
+            background: linear-gradient(
+                rgba(255,0,170,.4),
+                transparent
+            );
+            animation-delay: -2s;
+        }
+
+        @keyframes sweep {
+            from { transform: rotate(-40deg); }
+            to { transform: rotate(40deg); }
         }
 
         header {
@@ -32,6 +64,8 @@
             border-bottom: 2px solid #00ffcc;
             box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
             backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 2;
         }
 
         header h1 {
@@ -56,6 +90,8 @@
             width: 100%;
             max-width: 1300px;
             margin: auto;
+            position: relative;
+            z-index: 2;
         }
 
         .deck {
@@ -80,7 +116,7 @@
             align-items: center;
         }
 
-        /* Vúmetro de Alta Definición (12 Barras) */
+        /* Vúmetro de 12 Barras */
         .equalizer-container {
             height: 60px;
             width: 180px;
@@ -105,7 +141,6 @@
             opacity: 0.4;
         }
 
-        /* Animación Neón activa al reproducir */
         .playing .eq-bar {
             opacity: 1;
             box-shadow: 0 0 8px rgba(255, 0, 127, 0.6);
@@ -129,6 +164,16 @@
             40%  { height: 95%; }
             70%  { height: 45%; }
             100% { height: 80%; }
+        }
+
+        /* Animación de giro rápida a 1.8s */
+        .turntable.playing {
+            animation: spin 1.8s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .track-selector {
@@ -219,6 +264,8 @@
             gap: 50px;
             box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
             backdrop-filter: blur(8px);
+            position: relative;
+            z-index: 2;
         }
 
         .fader-group {
@@ -235,14 +282,21 @@
             letter-spacing: 1px;
         }
 
+        /* Estilo Gradiente del Crossfader */
+        .crossfader {
+            background: linear-gradient(
+                90deg,
+                #00ffff,
+                #ff00aa
+            );
+            height: 6px;
+            border-radius: 10px;
+        }
+
         input[type=range] {
             -webkit-appearance: none;
             width: 220px;
-            background: #222;
-            height: 6px;
-            border-radius: 3px;
             outline: none;
-            border: 1px solid #444;
         }
 
         input[type=range]::-webkit-slider-thumb {
@@ -262,6 +316,8 @@
             width: 100%;
             font-size: 0.75rem;
             color: #888;
+            position: relative;
+            z-index: 2;
         }
 
         @media (max-width: 900px) {
@@ -278,6 +334,10 @@
 </head>
 <body>
 
+    <!-- Focos Neón de Escenario (Beam Lights) -->
+    <div class="beam"></div>
+    <div class="beam beam-right"></div>
+
     <header>
         <h1>ALPINE RAVE 3000M</h1>
         <p>High-Altitude Afro-House DJ Booth | Dual Deck Experience</p>
@@ -288,7 +348,7 @@
         <div class="deck" id="deck-a-box">
             <h2>Deck A <span>[Master A]</span></h2>
             
-            <div class="equalizer-container" id="eq-a">
+            <div class="equalizer-container turntable" id="eq-a">
                 <div class="eq-bar"></div>
                 <div class="eq-bar"></div>
                 <div class="eq-bar"></div>
@@ -331,7 +391,7 @@
         <div class="deck" id="deck-b-box">
             <h2>Deck B <span>[Master B]</span></h2>
             
-            <div class="equalizer-container" id="eq-b">
+            <div class="equalizer-container turntable" id="eq-b">
                 <div class="eq-bar"></div>
                 <div class="eq-bar"></div>
                 <div class="eq-bar"></div>
@@ -362,7 +422,6 @@
                 </select>
             </div>
             <div class="deck-btns">
-                <!-- CORREGIDO: playTrack('b') -->
                 <button class="btn-play" onclick="playTrack('b')">PLAY</button>
                 <button class="btn-pause" onclick="pauseTrack('b')">STOP</button>
             </div>
@@ -380,7 +439,7 @@
         </div>
         <div class="fader-group">
             <label>Crossfader [Deck A &lt;-&gt; Deck B]</label>
-            <input type="range" id="crossfader" min="0" max="100" value="50" oninput="updateCrossfader()">
+            <input type="range" id="crossfader" class="crossfader" min="0" max="100" value="50" oninput="updateCrossfader()">
         </div>
     </div>
 
@@ -388,6 +447,8 @@
         <p>&copy; 2026 Alpine Rave 3000m Project | Built for high-altitude sessions</p>
     </footer>
 
+    <!-- Three.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js"></script>
     <!-- SoundCloud Widget API Script -->
     <script src="https://w.soundcloud.com/player/api.js"></script>
     <script>
@@ -450,11 +511,10 @@
         }
 
         function updateMasterVolume() {
-            const vol = document.getElementById('master-volume').value;
-            if (widgetA && isReadyA) widgetA.setVolume(vol);
-            if (widgetB && isReadyB) widgetB.setVolume(vol);
+            updateCrossfader();
         }
 
+        /* Lógica del Crossfader en tiempo real */
         function updateCrossfader() {
             const val = parseFloat(document.getElementById('crossfader').value);
             const masterVol = parseFloat(document.getElementById('master-volume').value);
@@ -462,6 +522,7 @@
             let volA = masterVol;
             let volB = masterVol;
 
+            // Transición suave de atenimiento entre Decks
             if (val < 50) {
                 volB = masterVol * (val / 50);
             } else if (val > 50) {
