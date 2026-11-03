@@ -326,27 +326,83 @@
             box-shadow: 0 0 8px #ff007f;
         }
 
-        footer {
-            text-align: center;
-            padding: 10px;
-            background: rgba(0,0,0,0.85);
-            width: 100%;
-            font-size: 0.75rem;
-            color: #888;
-            position: relative;
-            z-index: 2;
-        }
+        <style>
+  /* Estilo super discreto para el pie de página */
+  footer {
+    text-align: center;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.85);
+    width: 100%;
+    font-size: 0.7rem;
+    color: #888;
+    border-top: 1px solid rgba(0, 255, 204, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
 
-        @media (max-width: 900px) {
-            .deck {
-                width: 100%;
-                max-width: 450px;
-            }
-            .mixer-controls {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
+  .footer-legal-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    opacity: 0.85;
+  }
+
+  .flag-spain {
+    width: 15px;
+    height: 10px;
+    display: inline-block;
+    background: linear-gradient(to bottom, #AA151B 25%, #F1BF00 25%, #F1BF00 75%, #AA151B 75%);
+    border-radius: 1px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.4);
+    vertical-align: middle;
+  }
+
+  .footer-legal-text {
+    font-size: 0.7rem;
+    color: #aaa;
+  }
+
+  .footer-links-small {
+    display: flex;
+    gap: 10px;
+    font-size: 0.68rem;
+  }
+
+  .footer-links-small a {
+    color: #777;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links-small a:hover {
+    color: #00ffcc;
+  }
+</style>
+
+<footer>
+  <!-- Texto legal y bandera en tamaño pequeño -->
+  <div class="footer-legal-container">
+    <span class="flag-spain" title="España"></span>
+    <span class="footer-legal-text">
+      Gobierno de España | Ministerio de la Felicidad y el Descontrol. Fuma con responsabilidad 🌿. 🔞 Web no autorizada
+    </span>
+  </div>
+
+  <!-- Enlaces a tus páginas del repositorio -->
+  <div class="footer-links-small">
+    <a href="aviso-legal.html">Aviso Legal</a> • 
+    <a href="privacidad.html">Privacidad</a> • 
+    <a href="cookies.html">Cookies</a>
+  </div>
+
+  <div style="font-size: 0.65rem; color: #555; margin-top: 2px;">
+    &copy; 2026 Alpine Rave 3000m Project | Built for high-altitude sessions
+  </div>
+</footer>
     </style>
 </head>
 <body>
